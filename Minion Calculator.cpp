@@ -19,12 +19,17 @@ int main() {
 	
 	int fuelTypes[] = {0, 5, 10, 20, 5, 25, 25, 90, 50};
 	int upgradeTypes[] = {0, 0, 5, 25};
+	int diamondChance[] = {10, 10};
 	float itemPerSecond = 1.0;
 	float minionExpander = 1.0;
 	float _fuel = 1.0;
 	float flyCatcher = 1.0;
 	float fuel = 1.0;
 	float cat = 1.0;
+	float spreading = 1.0;
+	float itemPerHour;
+	float itemPerDay;
+	float itemPerWeek;
 	float itemPerMinute;
  	float unitPricePerMinute;
 	float unitPricePerHour;
@@ -40,7 +45,7 @@ int main() {
 	//Items
 	float itemPerAction;
 	cout << "-----------------" << endl;;
-	cout << "Enter Items Per Action (0.5 if 1 item, 1 if 2 items, etc..): ";
+	cout << "Enter Items Per Action (0.5 if 1 item): ";
 	cin >> itemPerAction;
 		
 	//Price
@@ -70,7 +75,7 @@ int main() {
 	//Upgrade 1
 	int upgradeOne;
 	cout << "-----------------" << endl;
-	cout << "Enter 1st Upgrade" << endl;
+	cout << "1st Minion Upgrade" << endl;
 	cout << "(1) Diamond Spreading [WIP]" << endl;
 	cout << "(2) Minion Expander" << endl;
 	cout << "(3) Fly Catcher" << endl;
@@ -81,13 +86,19 @@ int main() {
 	//Upgrade 2
 	int upgradeTwo;
 	cout << "-----------------" << endl;
-	cout << "Enter 2nd Upgrade" << endl;
+	cout << "2nd Minion Upgrade" << endl;
 	cout << "(1) Diamond Spreading [WIP]" << endl;
 	cout << "(2) Minion Expander" << endl;
 	cout << "(3) Fly Catcher" << endl;
 	cout << "(4) None" << endl;
 	cout << "Enter 2nd Upgrade: "; 
 	cin >> upgradeTwo;
+	
+	//Bonus
+	float bonus;
+	cout << "-----------------" << endl;
+	cout << "Enter any other bonuses. (Type 0 if none): ";
+	cin >> bonus; 
 	
 	//Minion Slots
 	int minionSlots;
@@ -186,7 +197,9 @@ int main() {
 	switch(upgradeOne){
 		case 1:
 			{
-				fuel = timePerAction + fuelTypes[0];
+				//bool a = (rand() % 100) < 10;
+				
+				//spreading = ((100 - diamondChance[upgradeOne - 1]) / 100.0);
 				break;
 			}
 		case 2:
@@ -235,6 +248,12 @@ int main() {
 				break;
 			}
 	}
+	
+	if(bonus > 0){
+		fuel = ((100 - bonus) / 100.0) * timePerAction;
+	} else {
+		fuel = timePerAction + fuelTypes[0];
+	}
 
 	
 	system("CLS");
@@ -246,14 +265,26 @@ int main() {
 	unitPricePerDay = (24 * (60 * (itemPerMinute * unitPrice))) * minionSlots;
 	unitPricePerWeek = (7 * (24 * (60 * (itemPerMinute * unitPrice)))) * minionSlots;
 	
+	itemPerHour = (itemPerMinute * minionSlots) * 60;
+	itemPerDay = itemPerHour * 24;
+	itemPerWeek = itemPerDay * 7;
+	
 	//Result
 	cout << fixed;
 	cout << setprecision(1);
 	cout.imbue(locale(cout.getloc(), new comma));
 	//cout << "Minute: " << unitPricePerMinute << " Coins.";
-	cout << "Hour: " << unitPricePerHour << " Coins.";
-	cout << "\nDay: "<< unitPricePerDay << " Coins.";
-	cout << "\nWeek: "<< unitPricePerWeek << " Coins." << endl;
+	cout << "Coins per:" << endl;
+	cout << "Hour: " << unitPricePerHour << endl;
+	cout << "Day: "<< unitPricePerDay << endl;
+	cout << "Week: "<< unitPricePerWeek << endl;
+	
+	cout << "-----------------" << endl;
+	cout << "Items per:" << endl;
+	cout << "Hour: " << itemPerHour << endl;
+	cout << "Day: " << itemPerDay << endl;
+	cout << "Week: " << itemPerWeek << endl;
+	cout << "\n";
 	
 	system("PAUSE");
 }
