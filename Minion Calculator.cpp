@@ -17,8 +17,8 @@ int main() {
 	cout << "#                     #\n";
 	cout << "#######################\n\n";
 	
-	int fuelTypes[] = {0, 5, 10, 20, 5, 25, 25, 90, 50};
-	int upgradeTypes[] = {0, 0, 5, 25};
+	int fuelTypes[] = {0, 5, 10, 20, 5, 25, 25, 90, 50, 0};
+	int upgradeTypes[] = {0, 0, 5, 25, 0};
 	int diamondChance[] = {10, 10};
 	float itemPerSecond = 1.0;
 	float minionExpander = 1.0;
@@ -113,7 +113,8 @@ int main() {
 		case 1:
 		{
 			//coal
-			fuel = ((100 - fuelTypes[fuelType]) / 100.0) * timePerAction; //%5
+			fuel = timePerAction * (1 - ((fuelTypes[fuelType] / 100.0) / (1 + (fuelTypes[fuelType] / 100.0))));
+			//fuel = ((100 - fuelTypes[fuelType]) / 100.0) * timePerAction; //%5
 			cat = itemPerAction;
 		
 			break;
@@ -121,7 +122,7 @@ int main() {
 		case 2:
 		{	
 			//eCoal
-			fuel = ((100 - fuelTypes[fuelType]) / 100.0) * timePerAction;
+			fuel = timePerAction * (1 - ((fuelTypes[fuelType] / 100.0) / (1 + (fuelTypes[fuelType] / 100.0))));
 			cat = itemPerAction;
 			
 			break;
@@ -129,7 +130,7 @@ int main() {
 		case 3:
 		{	
 			//eCharcoal
-			fuel = ((100 - fuelTypes[fuelType]) / 100.0) * timePerAction;
+			fuel = timePerAction * (1 - ((fuelTypes[fuelType] / 100.0) / (1 + (fuelTypes[fuelType] / 100.0))));
 			cat = itemPerAction;
 			
 			break;
@@ -138,7 +139,7 @@ int main() {
 		case 4:
 		{
 			//eBread
-			fuel = ((100 - fuelTypes[fuelType]) / 100.0) * timePerAction;
+			fuel = timePerAction * (1 - ((fuelTypes[fuelType] / 100.0) / (1 + (fuelTypes[fuelType] / 100.0))));
 			cat = itemPerAction;
 
 			break;
@@ -146,7 +147,7 @@ int main() {
 		case 5:
 		{
 			//solar
-			fuel = ((100 - fuelTypes[fuelType]) / 100.0) * timePerAction;
+			fuel = timePerAction * (1 - ((fuelTypes[fuelType] / 100.0) / (1 + (fuelTypes[fuelType] / 100.0))));
 			cat = itemPerAction;
 	
 			break;
@@ -154,15 +155,15 @@ int main() {
 		case 6:
 		{
 			//lavaBucket
-			fuel = ((100 - fuelTypes[fuelType]) / 100.0) * timePerAction;
+			fuel = timePerAction * (1 - ((fuelTypes[fuelType] / 100.0) / (1 + (fuelTypes[fuelType] / 100.0))));
 			cat = itemPerAction;
-		
+	
 			break;
 		}
 		case 7:
 		{
 			//foulFlesh
-			fuel = ((100 - fuelTypes[fuelType]) / 100.0) * timePerAction;
+			fuel = timePerAction * (1 - ((fuelTypes[fuelType] / 100.0) / (1 + (fuelTypes[fuelType] / 100.0))));
 			cat = itemPerAction;
 		
 			break;
@@ -170,7 +171,7 @@ int main() {
 		case 8:
 		{
 			//hamsterWheel
-			fuel = ((100 - fuelTypes[fuelType]) / 100.0) * timePerAction;
+			fuel = timePerAction * (1 - ((fuelTypes[fuelType] / 100.0) / (1 + (fuelTypes[fuelType] / 100.0))));
 			cat = itemPerAction;
 		
 			break;
@@ -197,27 +198,25 @@ int main() {
 	switch(upgradeOne){
 		case 1:
 			{
-				//bool a = (rand() % 100) < 10;
-				
-				//spreading = ((100 - diamondChance[upgradeOne - 1]) / 100.0);
+				//WIP
+				fuel = timePerAction + fuelTypes[fuelType];
 				break;
 			}
 		case 2:
 			{	
 				//minion expander
-				fuel = ((100 - (fuelTypes[fuelType] + upgradeTypes[upgradeOne])) / 100.0) * timePerAction;
-			
+				fuel = timePerAction * (1 - (((fuelTypes[fuelType] + upgradeTypes[upgradeOne]) / 100.0) / (1 + ((fuelTypes[fuelType] + upgradeTypes[upgradeOne]) / 100.0))));
 				break;
 			}
 		case 3:
 			{
 				//flyCatcher
-				fuel = ((100 - (fuelTypes[fuelType] + upgradeTypes[upgradeOne])) / 100.0) * timePerAction; 
+				fuel = timePerAction * (1 - (((fuelTypes[fuelType] + upgradeTypes[upgradeOne]) / 100.0) / (1 + ((fuelTypes[fuelType] + upgradeTypes[upgradeOne]) / 100.0)))); 
 				break;
 			}
 		case 4:
 			{
-				fuel = timePerAction + fuelTypes[0];
+				fuel = timePerAction * (1 - ((fuelTypes[fuelType] / 100.0) / (1 + (fuelTypes[fuelType] / 100.0))));
 				break;
 			}
 	}
@@ -225,34 +224,35 @@ int main() {
 	switch(upgradeTwo){
 		case 1:
 			{
-				fuel = timePerAction + fuelTypes[0];
+				//WIP
+				fuel = timePerAction + fuelTypes[fuelType];
 				break;
 			}
 		case 2:
 			{	
 				//minion expander
-				fuel = ((100 - (fuelTypes[fuelType] + upgradeTypes[upgradeOne] + 5)) / 100.0) * timePerAction; //15%
+				fuel = timePerAction * (1 - (((fuelTypes[fuelType] + upgradeTypes[upgradeOne] + upgradeTypes[upgradeTwo]) / 100.0) / (1 + ((fuelTypes[fuelType] + upgradeTypes[upgradeOne]) / 100.0))));
 			
 				break;
 			}
 		case 3:
 			{
 				//flyCatcher
-				fuel = ((100 - (fuelTypes[fuelType] + upgradeTypes[upgradeOne] + 25)) / 100.0) * timePerAction; 
+				fuel = timePerAction * (1 - (((fuelTypes[fuelType] + upgradeTypes[upgradeOne] + upgradeTypes[upgradeTwo]) / 100.0) / (1 + ((fuelTypes[fuelType] + upgradeTypes[upgradeOne] + upgradeTypes[upgradeTwo]) / 100.0)))); 
 		
 				break;
 			}
 		case 4:
 			{
-				fuel = timePerAction + fuelTypes[0];
+				fuel = timePerAction * (1 - (((fuelTypes[fuelType] + upgradeTypes[upgradeOne]) / 100.0) / (1 + ((fuelTypes[fuelType] + upgradeTypes[upgradeOne]) / 100.0))));
 				break;
 			}
 	}
 	
 	if(bonus > 0){
-		fuel = ((100 - bonus) / 100.0) * timePerAction;
+		fuel = timePerAction * (1 - (((fuelTypes[fuelType] + upgradeTypes[upgradeOne] + upgradeTypes[upgradeTwo] + bonus) / 100.0) / (1 + ((fuelTypes[fuelType] + upgradeTypes[upgradeOne] + upgradeTypes[upgradeTwo] + bonus) / 100.0)))); 
 	} else {
-		fuel = timePerAction + fuelTypes[0];
+		fuel = timePerAction * (1 - (((fuelTypes[fuelType] + upgradeTypes[upgradeOne] + upgradeTypes[upgradeTwo]) / 100.0) / (1 + ((fuelTypes[fuelType] + upgradeTypes[upgradeOne]) / 100.0))));
 	}
 
 	
